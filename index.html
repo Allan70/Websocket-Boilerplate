@@ -9,12 +9,12 @@
     <p>Messages</p>
     <output id="messages"></output>
     <script>
-        const messages = document.getElementById("messages")
-        const socket = new WebSocket('ws://localhost:3001')
+        const messages = document.getElementById("messages");
+        const socket = new WebSocket('ws://localhost:3001');
 
         socket.onopen = (event)=>{
-            console.log('Web socket is connected')
-            const id = Math.round(Math.random() * 100)
+            console.log('Web socket is connected');
+            const id = Math.round(Math.random() * 100);
 
             console.log('sending...', id);
             const intervalId = setInterval(()=>{
