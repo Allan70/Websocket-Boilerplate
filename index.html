@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allan Abere | Web Socket client</title>
+</head>
+<body>
+    <p>Messages</p>
+    <output id="messages"></output>
+    <script>
+        const messages = document.getElementById("messages")
+        const socket = new WebSocket('ws://localhost:3001')
+
+        socket.onopen = (event)=>{
+            console.log('Web socket is connected')
+            const id = Math.round(Math.random() * 100);
+
+            console.log('sending...', id);
+            const intervalId = setInterval(()=>{
+
+                const data = JSON.stringify(
+                [
+                    {
+                        id,
+                        name: `[${id}] Allan Abere`,
+                        address: {
+                            street: 'my street',
+                            number: 70
+                        },
+                        profession: 'developer'
+                    },
+                    {
+                        id,
+                        name: `[${id}] Nelson Mandela`,
+                        address: {
+                            street: 'my street',
+                            number: 70
+                        },
+                        profession: 'developer'
+                    },
+                    {
+                        id,
+                        name: `[${id}] Vivian Koech`,
+                        address: {
+                            street: 'my street',
+                            number: 70
+                        },
+                        profession: 'developer'
+                    }
+                ])
+                socket.send(data);
+            }, 1000)
+
+            setTimeout(()=>{
+                cleanInterval(intervalId);
+            }, 5000)
+        }
+        socket.onmessage = (msg)=>{
+            const message = msg.data
+            console.log('I got a message', message)
+            messages.innerHTML += `<br /> ${message}`
+        }
+        socket.onerror = (error)=>console.error('Websocket Error', error)
+        socket.onclose = (event)=>console.log('Disconnected from Web Socket')
+
+    </script>
+    
+</body>
+</html>
