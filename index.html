@@ -14,7 +14,7 @@
 
         socket.onopen = (event)=>{
             console.log('Web socket is connected')
-            const id = Math.round(Math.random() * 100);
+            const id = Math.round(Math.random() * 100)
 
             console.log('sending...', id);
             const intervalId = setInterval(()=>{
